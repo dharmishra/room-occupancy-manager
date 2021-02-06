@@ -28,12 +28,10 @@ public class RoomOccupancyController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RoomOccupancyController.class);
 
     RoomOccupancyService roomOccupancyService;
-    RoomOccupancyRepository roomOccupancyRepository;
 
     @Autowired
-    public RoomOccupancyController(RoomOccupancyService roomOccupancyService, RoomOccupancyRepository roomOccupancyRepository) {
+    public RoomOccupancyController(RoomOccupancyService roomOccupancyService) {
         this.roomOccupancyService = roomOccupancyService;
-        this.roomOccupancyRepository = roomOccupancyRepository;
     }
 
     @Operation(summary = "Api returns the Room occupancy status")
@@ -73,13 +71,8 @@ public class RoomOccupancyController {
         LOGGER.info("Total Available Premium rooms: " + roomOccupancyRequest.getAvailablePremiumRooms());
         LOGGER.info("Total Available Economy rooms: " + roomOccupancyRequest.getAvailableEconomyRooms());
 
-        List<Integer> totalPayments = roomOccupancyRepository.getRoomPayments();
-        RoomOccupancy roomOccupancy = RoomOccupancy.builder()
-                .totalPaymentMade(totalPayments)
-                .economyRoomAvailable(roomOccupancyRequest.getAvailableEconomyRooms())
-                .premiumRoomAvailable(roomOccupancyRequest.getAvailablePremiumRooms())
-                .build();
-        roomOccupancy = roomOccupancyService.occupyRooms(roomOccupancy);
+
+        RoomOccupancy roomOccupancy = roomOccupancyService.occupyRooms(roomOccupancyRequest);
 
         LOGGER.info("Usage Premium: " + roomOccupancy.getPremiumRoomOccupied() + "(EUR " + roomOccupancy.getPremiumRoomTotalMade() + ")");
         LOGGER.info("Usage Economy: " + roomOccupancy.getEconomyRoomOccupied() + "(EUR " + roomOccupancy.getEconomyRoomTotalMade() + ")");

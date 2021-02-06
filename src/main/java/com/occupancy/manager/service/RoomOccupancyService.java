@@ -1,6 +1,9 @@
 package com.occupancy.manager.service;
 
+import com.occupancy.manager.domain.RoomOccupancyRequest;
 import com.occupancy.manager.model.RoomOccupancy;
+import com.occupancy.manager.repository.RoomOccupancyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,7 +14,21 @@ import java.util.stream.Collectors;
 @Service
 public class RoomOccupancyService {
 
-    public RoomOccupancy occupyRooms(RoomOccupancy roomOccupancy) {
+    public RoomOccupancyService(RoomOccupancyRepository roomOccupancyRepository) {
+        this.roomOccupancyRepository = roomOccupancyRepository;
+    }
+
+    @Autowired
+    RoomOccupancyRepository roomOccupancyRepository;
+
+    public RoomOccupancy occupyRooms(RoomOccupancyRequest roomOccupancyRequest) {
+
+        List<Integer> totalPayments = roomOccupancyRepository.getRoomPayments();
+        RoomOccupancy roomOccupancy = RoomOccupancy.builder()
+                .totalPaymentMade(totalPayments)
+                .economyRoomAvailable(roomOccupancyRequest.getAvailableEconomyRooms())
+                .premiumRoomAvailable(roomOccupancyRequest.getAvailablePremiumRooms())
+                .build();
 
         RoomOccupancy occupancy = roomOccupancy.toBuilder().build();
 
