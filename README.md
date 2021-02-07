@@ -36,9 +36,9 @@ Also this used the open docs to rest API documentation is available on following
 http://localhost:8084/api-docs
 
 
-Use this Json format for a simple test
+Use this Json format for a single request to test API one can opne swagger UI to test these request or use any REST client tools like postman etc
 
-{
+{ 
 "availablePremiumRooms": 3,
 "availableEconomyRooms": 3
 }
