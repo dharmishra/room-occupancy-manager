@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class RoomOccupancyService {
 
+    RoomOccupancyRepository roomOccupancyRepository;
+
+    @Autowired
     public RoomOccupancyService(RoomOccupancyRepository roomOccupancyRepository) {
         this.roomOccupancyRepository = roomOccupancyRepository;
     }
-
-    @Autowired
-    RoomOccupancyRepository roomOccupancyRepository;
 
     public RoomOccupancy occupyRooms(RoomOccupancyRequest roomOccupancyRequest) {
 

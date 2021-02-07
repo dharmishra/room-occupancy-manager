@@ -5,10 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,13 +30,13 @@ public class RoomOccupancyRepository {
             });
         } catch (IOException io) {
             LOGGER.warn("Error Occurred while constructing payment from the provided json /data/sample_hotel_guests.json", io);
-            roomPayments = new ArrayList<>();
+            roomPayments = List.of();
         }
         LOGGER.info("Room prices retrieved from the provided json file" + roomPayments.toString());
     }
 
     public List<Integer> getRoomPayments() {
-        if (roomPayments == null || roomPayments.isEmpty()) {
+        if (CollectionUtils.isEmpty(roomPayments)) {
             initData();
         }
         return roomPayments;
