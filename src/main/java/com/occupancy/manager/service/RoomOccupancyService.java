@@ -33,7 +33,7 @@ public class RoomOccupancyService {
         RoomOccupancy occupancy = roomOccupancy.toBuilder().build();
 
         List<Integer> economyRoomLists;
-        List<Integer> premiumRoomLists = null;
+        List<Integer> premiumRoomLists;
 
         int availableEconomyRooms = roomOccupancy.getEconomyRoomAvailable();
         int availablePremiumRooms = roomOccupancy.getPremiumRoomAvailable();
