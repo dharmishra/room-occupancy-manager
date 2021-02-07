@@ -3,7 +3,6 @@ package com.occupancy.manager.controller;
 import com.occupancy.manager.domain.RoomOccupancyRequest;
 import com.occupancy.manager.domain.RoomOccupancyResponse;
 import com.occupancy.manager.model.RoomOccupancy;
-import com.occupancy.manager.repository.RoomOccupancyRepository;
 import com.occupancy.manager.service.RoomOccupancyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

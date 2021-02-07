@@ -39,7 +39,6 @@ public class RoomOccupancyService {
         int availablePremiumRooms = roomOccupancy.getPremiumRoomAvailable();
 
         List<Integer> paymentList = roomOccupancy.getTotalPaymentMade();
-        paymentList.sort(Comparator.naturalOrder());
         paymentList.sort(Comparator.reverseOrder());
 
         //Extract Economy Payment List in sorted order
@@ -47,7 +46,7 @@ public class RoomOccupancyService {
                 .filter( i -> i < 100)
                 .collect(Collectors.toList());
 
-        //Extract Economy Payment List in sorted order
+        //Extract Premium Payment List in sorted order
         List<Integer> sortedPremiumPaymentList = paymentList.stream()
                 .filter( i -> i >= 100)
                 .collect(Collectors.toList());
@@ -61,6 +60,9 @@ public class RoomOccupancyService {
             economyRoomLists = sortedEconomyPaymentList.stream()
                     .limit(availableEconomyRooms + (availablePremiumRooms - sortedPremiumPaymentList.size()))
                     .filter(i -> i < sortedEconomyPaymentList.get((availablePremiumRooms - sortedPremiumPaymentList.size()) - 1))
+                    .collect(Collectors.toList());
+            premiumRoomLists = paymentList.stream()
+                    .limit(availablePremiumRooms)
                     .collect(Collectors.toList());
         } else {
             economyRoomLists = sortedEconomyPaymentList.stream()
